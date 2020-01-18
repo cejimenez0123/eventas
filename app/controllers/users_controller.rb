@@ -15,12 +15,19 @@ class UsersController < ApplicationController
     @user=User.create (params[:user])
       redirect "/users/#{@user.id}"
   end
-  get '/login' do
+  get '/login' do 
+    # sessions[:error]=true
+    # @error?=sessions[:error]
     erb :'/users/login'
   end
   post '/login' do
-    @user = User.find_by(name: params[:user][:name],email: params[:user][:email], password_digest: params[:user][:password_digest])
-    redirect "/users/#{@user.id}"
+    @user = User.find_by(email: params[:user][:email]).authenticate(params[:user][:password])
+    if @user
+      # sessions[:error] = false
+      redirect "/users/#{@user.id}" 
+    else 
+      redirect "/login"
+    end
   end
   # POST: /users
   post "/users" do
@@ -29,6 +36,10 @@ class UsersController < ApplicationController
 
   # GET: /users/5
   get "/users/:id" do
+    @user=User.find_by(id: params[:id])
+    erb :"/users/show.html"
+  end
+  post "/users/:id" do
     @user=User.find_by(id: params[:id])
     erb :"/users/show.html"
   end
