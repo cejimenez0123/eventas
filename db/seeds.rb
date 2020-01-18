@@ -1,0 +1,5 @@
+u1 = User.create(name: "BOB" ,email: "bobby@hot.com" ,password: "Jokey")
+u2 = User.create(name: "EMMY" ,email: "EMMY@hot.com" ,password: "BOBO")
+e1= Event.create(name: "jamboree" ,dis: "life day", user_id: u1.id )
+e2= Event.create(name: "flog" ,dis: "gnaw", user_id: u2.id )
+r1 = RSVP.create(event_id: e2.id, user_id: u2.id rsvp_type: "Invited")
