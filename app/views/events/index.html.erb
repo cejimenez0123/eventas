@@ -1,6 +1,6 @@
-<h1>This is the Model's index page.</h1>
 
-<h1>All Events</h1>
-<%Event.all.each do |t,i|%>
-    <%=t[i].name%>
+
+<h1>Events:</h1>
+<%Event.all.each do |event|%>
+    <%=event.name%>
     <%end%>

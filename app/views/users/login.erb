@@ -1,9 +1,9 @@
-<form method="POST" action="/login">
+<form action="/login" method="POST" >
 
-  <label for="email">Email: <input type="text"  name="user[email]" /></label>
+  <label for="email">Email: <input type="text"  name="email" /></label>
   <br>
   <br>
-  <label for="password">Password: <input type="password" name="user[password]" /></label>
+  <label for="password">Password: <input type="password" name="password" /></label>
   <input type="submit" value="Log in" />
   <%# <%if @error?%>
   <%# <%="Try Again"%>

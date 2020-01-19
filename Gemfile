@@ -13,6 +13,9 @@ gem 'rerun'
 gem 'bcrypt'
 gem 'tux'
 
+group :development do 
+     gem "rubocop"
+end
 # group :test do
 #   gem 'rspec'
 #   gem 'capybara'

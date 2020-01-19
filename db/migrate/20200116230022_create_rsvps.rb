@@ -3,8 +3,6 @@ class CreateRsvps < ActiveRecord::Migration
     create_table :rsvps do |t|
       t.integer :event_id
       t.integer :user_id
-      t.integer :invite_id
-      t.string :rsvp_type
     end
   end
 end

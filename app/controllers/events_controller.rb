@@ -9,6 +9,10 @@ class EventsController < ApplicationController
   get "/events/new" do
     erb :"/events/new.html"
   end
+  post "/events/new" do
+    @event = Event.new(params[:event])
+    redirect :"/events/#{@event.id}"
+  end
 
   # POST: /events
   post "/events" do
@@ -17,6 +21,7 @@ class EventsController < ApplicationController
 
   # GET: /events/5
   get "/events/:id" do
+
     erb :"/events/show.html"
   end
 

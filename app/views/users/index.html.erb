@@ -1,1 +1,5 @@
-<h1><%= @user.name%></h1>
+<h1>Meet new people</h1>
+<%User.all.each do |t|%>
+<p><%=t.name%></p>
+<%end%>
+<input type="submit" href="/event/new" value="Make an event">

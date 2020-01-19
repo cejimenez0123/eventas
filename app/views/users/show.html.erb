@@ -1,8 +1,9 @@
 <h1>Hello <%= @user.name%></h1>
 
 <h2>Events Started:</h2>
-    
-   <a href='/events/:id'> b</a>
-    <%end%>    
-
+    <%@user.events.each do |event|%>
+  <a href='/events/:id'><%= event.name%></a>
+ 
+<%end%>
 <a href="/events/new">Create a new event</a>
+<a href="/events">Checkout events</a>

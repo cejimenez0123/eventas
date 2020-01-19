@@ -16,14 +16,12 @@ class UsersController < ApplicationController
       redirect "/users/#{@user.id}"
   end
   get '/login' do 
-    # sessions[:error]=true
-    # @error?=sessions[:error]
     erb :'/users/login'
   end
   post '/login' do
-    @user = User.find_by(email: params[:user][:email]).authenticate(params[:user][:password])
-    if @user
-      # sessions[:error] = false
+    @user = User.find_by(:email => params[:email])
+    if @user && @user.authenticate(params[:password])
+      session[:user_id] = @user.id
       redirect "/users/#{@user.id}" 
     else 
       redirect "/login"
@@ -36,13 +34,17 @@ class UsersController < ApplicationController
 
   # GET: /users/5
   get "/users/:id" do
-    @user=User.find_by(id: params[:id])
-    erb :"/users/show.html"
+    @user=User.find_by(params)
+    erb :"/users/index.html"
   end
   post "/users/:id" do
-    @user=User.find_by(id: params[:id])
+    @user=User.find_by(params)
     erb :"/users/show.html"
   end
+patch "/users/:id" do
+  @user.find_by(params)
+end
+  
 
   # GET: /users/5/edit
   get "/users/:id/edit" do
@@ -58,21 +60,5 @@ class UsersController < ApplicationController
   delete "/users/:id/delete" do
     redirect "/users"
   end
+
 end
-
-
-  # get "/user" do
-  #     @user = params[:user]
-  # end
-  # get '/user/sign_up' do
-  #     erb :'/user/new'
-  #   end
-  # get "/user/login" do
-  #     erb :'/user/show'
-  #   end
-  #   get "/user/:id" do
-  #     erb :'/user'
-  #   end
-  
-  
-  # end
