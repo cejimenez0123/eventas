@@ -8,11 +8,20 @@ class EventsController < ApplicationController
 
   # GET: /events/new
   get "/events/new" do
+    @event_error=session[:event_error]
     erb :"/events/new.html"
   end
   post "/events/new" do
-    @event = Event.create(name: params[:event][:name],dis: params[:event][:dis],user_id: current_user.id)
-    redirect "/events"
+    if Event.find_by(name: params[:event][:name])
+      session[:event_error]="An event exist with name already"
+      redirect "/events/new"
+    elsif params[:event][:name].empty? && params[:event][:dis].empty?
+      session[:event_error]="Inputs can't be empty"
+      redirect "/events/new"
+    else
+      @event = Event.create(name: params[:event][:name],dis: params[:event][:dis],user_id: current_user.id)
+      redirect "/events"
+    end
   end
   post "/events/:id/rsvp" do
     event = Event.find_by(id: params[:id])
@@ -36,14 +45,10 @@ class EventsController < ApplicationController
   # GET: /events/5
   get "/events/:id" do
     @event = Event.find_by(id: params[:id])
-    
+    @rsvp = Rsvp.find_by(user: current_user, event: @event)
     erb :"/events/show.html"
   end
-  post "/events/:id" do
-    # @event = Event.find_by(id:)
-    # erb :"/events/show.html"
-    
-  end
+
   get "/events/welcome" do
     erb :"/events/cu"
   end

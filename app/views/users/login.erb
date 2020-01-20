@@ -5,7 +5,5 @@
   <br>
   <label for="password">Password: <input type="password" name="password" /></label>
   <input type="submit" value="Log in" />
-  <%# <%if @error?%>
-  <%# <%="Try Again"%>
-  <%# <%end%> 
+  <%=@login_error%>
 </form>

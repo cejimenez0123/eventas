@@ -1,18 +1,20 @@
 
-<form action="/users/<%=user.id%>" method="POST">
+<form action="/users/<%=@user.id%>" method="POST">
 <input id="hidden" type="hidden" name="_method" value="patch" />
     <label>Profile Edit</label>
-    
-    <label for="name"> Edit Name:<input type="text" name="user[name]"  value="<%= user.name %>">
     <br>
-    <label for="email">Change email:<input type="text" name="user[email]" value="<%= user.email %>" ><br>
+    <br>
+    
+    <label for="name"> Edit Name:<input type="text" name="user[name]"  value="<%= @user.name %>">
+    <br>
+    <label for="email">Change email:<input type="text" name="user[email]" value="<%= @user.email %>" ><br>
       <label>Change password:</label>
       <input type="text" name="user[password]" id="user_password">
       <br>
 
     <input type="submit" value="Update User">
   </form>
-  <form action="/users/:id/delete" method = "POST">
+  <form action="/users/<%=@user.id%>/delete" method = "POST">
      <input type="hidden" name="_method" value="DELETE">
     <input type="submit" value="delete account">
   </form>

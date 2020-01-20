@@ -7,15 +7,19 @@
  <p> <%=@event.dis%></p>
  <br>
  <br>
- 
+ <%if !@rsvp%>
+
  <form  action= "/events/<%=@event.id%>/rsvp" method="POST">
   <input type="submit" value="opt_in" >
 </form>
+<%else%>
+
  
 <form action = "/events/<%=@event.id%>/rsvp/delete" method="POST">
   <input type="hidden" name="_method" value="DELETE">
   <input type="submit" value="opt_out">
 </form>
+<%end%>
 
 <a href="/users/<%=current_user.id%>">Return to profile</a>
 <a href="/events">Return to events</a>
