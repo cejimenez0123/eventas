@@ -1,0 +1,9 @@
+<h2>Events you are RSVPed to</h2>
+<%@user.rsvps.each do |rsvp| %>
+
+<a href= "/events/<%=rsvp.event.id%>"> <%=rsvp.event.name%></a>
+<br>
+<%end%>
+<br>
+<br>
+<a href="/users/<%=@user.id%>">Return to profile</a>

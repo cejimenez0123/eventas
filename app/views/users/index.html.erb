@@ -1,5 +1,6 @@
-<h1>Meet new people</h1>
+<h1>Eventurers</h1>
+<h2>Meet new people</h2>
 <%User.all.each do |t|%>
-<p><%=t.name%></p>
+<a href="/users/<%=t.id%>"><%=t.name%></p></a>
 <%end%>
-<input type="submit" href="/event/new" value="Make an event">
+<a href="/event/new">Make an event</a><a href="/users/<%=current_user.id%>">Return to profile</a>

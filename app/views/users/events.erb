@@ -1,0 +1,12 @@
+<%binding.pry%>
+  <h1><%= @event.name%>
+  <br>
+  <br>
+  <label for="dis">Discription:</label>
+ <p> <%=@event.dis%></p>
+ <br>
+ <br>
+<form action = "/users/events/<%=@event.id%>/delete" method="POST">
+  <input type="hidden" name="_method" value="DELETE">
+  <input type="submit" value="delete event">
+  </form>

@@ -1,8 +1,21 @@
+
+  
   <h1><%= @event.name%>
   <br>
   <br>
   <label for="dis">Discription:</label>
-  <p name = event[dis]><%=@event.dis%></p>
+ <p> <%=@event.dis%></p>
+ <br>
+ <br>
  
-<>
-<a href='/users/:id'>Return to profile</a>
+ <form  action= "/events/<%=@event.id%>/rsvp" method="POST">
+  <input type="submit" value="opt_in" >
+</form>
+ 
+<form action = "/events/<%=@event.id%>/rsvp/delete" method="POST">
+  <input type="hidden" name="_method" value="DELETE">
+  <input type="submit" value="opt_out">
+</form>
+
+<a href="/users/<%=current_user.id%>">Return to profile</a>
+<a href="/events">Return to events</a>

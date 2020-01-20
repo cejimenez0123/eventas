@@ -1,5 +1,4 @@
 <form method="POST" action="/events/new">
-
   <label for="name">Event Name: <input type="text" name="event[name]" /></label>
   <br>
   <br>
@@ -7,3 +6,5 @@
   <br>
   <input type="submit"  value="submit" />
 </form>
+
+<a href="/users/<%=current_user.id%>">Return to profile</a>

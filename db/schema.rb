@@ -22,8 +22,6 @@ ActiveRecord::Schema.define(version: 20200116230022) do
   create_table "rsvps", force: :cascade do |t|
     t.integer "event_id"
     t.integer "user_id"
-    t.integer "invite_id"
-    t.string  "rsvp_type"
   end
 
   create_table "users", force: :cascade do |t|

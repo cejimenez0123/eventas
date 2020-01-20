@@ -1,15 +1,8 @@
 require 'pry'
 class UsersController < ApplicationController
 
-  # GET: /users
-  # get "/users" do
-  #   erb :"/users/index.html"
-  # end
-
-  # GET: /users/new
   get "/sign_up" do
-    erb :"/users/new.html"
-    
+    erb :"/users/new.html"    
   end
   post '/sign_up' do
     @user=User.create (params[:user])
@@ -34,17 +27,30 @@ class UsersController < ApplicationController
 
   # GET: /users/5
   get "/users/:id" do
-    @user=User.find_by(params)
-    erb :"/users/index.html"
-  end
-  post "/users/:id" do
-    @user=User.find_by(params)
+    @user=User.find_by(id: params[:id]) 
     erb :"/users/show.html"
   end
-patch "/users/:id" do
+  post "/users/:id" do
+    @user=User.find_by(id: params[:id])
+    erb :"/users/show.html"
+  end
+  patch "/users/:id" do
   @user.find_by(params)
-end
+  end
+  get "/logout" do
+  session.clear
+  redirect "/"
+  end
+  delete "/users/events/:id/delete" do
+    binding.pry
+    event=Event.find_by(params[:id])
+    event.destroy
+    redirect "/events/delete"
+  end
   
+  get "/users/events/:id" do
+    erb :"/users/events"
+  end
 
   # GET: /users/5/edit
   get "/users/:id/edit" do
@@ -58,7 +64,10 @@ end
 
   # DELETE: /users/5/delete
   delete "/users/:id/delete" do
-    redirect "/users"
+      user = User.find_by(params[:id])
+      user.destroy
+      redirect "/sign_up"
   end
+
 
 end

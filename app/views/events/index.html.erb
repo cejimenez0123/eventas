@@ -1,6 +1,8 @@
 
-
-<h1>Events:</h1>
+<h1>Find something you like</h1>
+<h3>Events:</h3>
 <%Event.all.each do |event|%>
-    <%=event.name%>
+ <a href="events/<%=event.id%>">   <%=event.name%></a>
+    <br>
     <%end%>
+    <a href='/users/:id'>Return to profile</a>

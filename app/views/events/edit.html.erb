@@ -1,1 +1,15 @@
-<h1>Insert the form to edit an instance of your model here.</h1>
+<form action="/events/<%=params[:id]%>" method="POST">
+    <input id="hidden" type="hidden" name="_method" value="patch" />
+        <h1>Event name:<input type="text" name = "event[name]" value="<%= @event.name%>"></h1>
+    <br>
+    <br>
+  <label for="dis">Edit discription:</label>
+  <textarea name="event[dis]" rows="4" cols="50"></textarea></label>
+    <br>
+
+</form>
+<form action = "/users/events/<%=@event.id%>/delete" method="POST">
+  <input type="hidden" name="_method" value="DELETE">
+    <input type="submit" value="Delete Event">
+</form>
+  <a href="/users/<%=session[:user_id]%>">Return to profile</a>
