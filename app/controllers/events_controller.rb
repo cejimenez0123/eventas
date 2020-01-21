@@ -19,7 +19,8 @@ class EventsController < ApplicationController
       session[:event_error]="Inputs can't be empty"
       redirect "/events/new"
     else
-      @event = Event.create(name: params[:event][:name],dis: params[:event][:dis],user_id: current_user.id)
+      @event = Event.create(name: params[:event][:name],dis: params[:event][:dis], user: current_user)
+      @event.user = current_user
       redirect "/events"
     end
   end
@@ -55,14 +56,18 @@ class EventsController < ApplicationController
 
   # GET: /events/5/edit
   get "/events/:id/edit" do
+    @delete_error = session[:delete_error]
     @event = Event.find_by(id: params[:id])
     erb :"/events/edit.html"
   end
 
   # PATCH: /events/5
   patch "/events/:id" do
-    binding.pry
-    session[:event_id]=@event.id
+    event = Event.find_by(id: params[:id])
+    event.name = params[:event][:name]
+    event.dis = params[:event][:dis]
+    event.save
+    redirect "/events/#{event.id}"
   end
 
   # DELETE: /events/5/delete

@@ -41,7 +41,8 @@ class UsersController < ApplicationController
 
   # GET: /users/5
   get "/users/:id" do
-    @user=User.find_by(id: params[:id]) 
+    @user=User.find_by(id: session[:user_id]) 
+   
     erb :"/users/show.html"
   end
   post "/users/:id" do
@@ -61,10 +62,14 @@ class UsersController < ApplicationController
   redirect "/"
   end
   delete "/users/events/:id/delete" do
-    binding.pry
-    event=Event.find_by(params[:id])
+    event=Event.find_by(id: params[:id])
+    if !event 
+      session[:delete_error]="The event has already been deleted"
+      redirect "/events/#{params[:id]}/delete"
+    else
     event.destroy
-    redirect "/events/delete"
+    redirect "/events/#{params[:id]}/delete"
+    end
   end
   
   get "/users/events/:id" do
@@ -79,7 +84,6 @@ class UsersController < ApplicationController
 
   # PATCH: /users/5
   patch "/users/:id" do
-    binding.pry
     redirect "/users/:id"
   end
 

@@ -1,12 +1,12 @@
 <form action="/events/<%=params[:id]%>" method="POST">
-    <input id="hidden" type="hidden" name="_method" value="patch" />
+    <input id="hidden" type="hidden" name="_method" value="PATCH" />
         <h1>Event name:<input type="text" name = "event[name]" value="<%= @event.name%>"></h1>
     <br>
     <br>
   <label for="dis">Edit discription:</label>
-  <textarea name="event[dis]" rows="4" cols="50"></textarea></label>
+  <textarea name="event[dis]" rows="4" cols="50"><%=@event.dis%></textarea></label>
     <br>
-
+    <input type="submit" value="Update Event">
 </form>
 <form action = "/users/events/<%=@event.id%>/delete" method="POST">
   <input type="hidden" name="_method" value="DELETE">
