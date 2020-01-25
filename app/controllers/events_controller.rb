@@ -50,10 +50,6 @@ class EventsController < ApplicationController
     erb :"/events/show.html"
   end
 
-  get "/events/welcome" do
-    erb :"/events/cu"
-  end
-
   # GET: /events/5/edit
   get "/events/:id/edit" do
     @delete_error = session[:delete_error]
