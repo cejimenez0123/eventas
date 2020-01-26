@@ -13,7 +13,12 @@ class ApplicationController < Sinatra::Base
   get '/' do 
     erb :'app/index'
   end
-  
+  helpers do 
+    def current_user
+      current_user=User.find_by(id: session[:user_id])
+      current_user
+    end
+  end
   
 
 end

@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20200116230022) do
   create_table "events", force: :cascade do |t|
     t.string  "name"
     t.string  "dis"
-    t.integer "user_id"
+    t.integer "created_by_id"
   end
 
   create_table "rsvps", force: :cascade do |t|

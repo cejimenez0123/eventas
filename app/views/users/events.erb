@@ -1,5 +1,5 @@
-<%binding.pry%>
-  <h1><%= @event.name%>
+
+  <h1><%= @event.name%></h1>
   <br>
   <br>
   <label for="dis">Discription:</label>
@@ -10,3 +10,5 @@
   <input type="hidden" name="_method" value="DELETE">
   <input type="submit" value="delete event">
   </form>
+  <>
+  <a href="/users/<%=current_user.id%>">Go to profile</a>

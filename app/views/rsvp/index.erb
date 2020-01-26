@@ -1,4 +1,5 @@
 <h2>Events you are RSVPed to</h2>
+<%=@rsvp_error%>
 <%@user.rsvps.each do |rsvp| %>
 
 <a href= "/events/<%=rsvp.event.id%>"> <%=rsvp.event.name%></a>
@@ -7,3 +8,4 @@
 <br>
 <br>
 <a href="/users/<%=@user.id%>">Return to profile</a>
+<a href="/events">Checkout events</a>

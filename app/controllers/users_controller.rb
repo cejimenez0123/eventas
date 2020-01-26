@@ -42,14 +42,24 @@ class UsersController < ApplicationController
   # GET: /users/5
   get "/users/:id" do
     @user=User.find_by(id: session[:user_id]) 
-   
+    @event_message=session[:your_event]
+    @user_events = []
+    @user.events.each do |event|
+      @user_events << event if event.created_by_id == current_user.id 
+    end
+    if @user_events.empty?
+      @event_message = "Make some events at the bottom" 
+    else 
+      @event_message=nil
+    end
     erb :"/users/show.html"
   end
   post "/users/:id" do
+    binding.pry
     @user=User.find_by(id: params[:id])
     erb :"/users/show.html"
   end
-  patch "/users/:id" do
+  put "/users/:id" do
     user=User.find_by(id: params[:id])
     user.name = params[:user][:name]
     user.email = params[:user][:email]
@@ -58,17 +68,23 @@ class UsersController < ApplicationController
     redirect "/users/#{user.id}"
   end
   get "/logout" do
-  session.clear
-  redirect "/"
+    session.clear
+    redirect "/"
   end
+
+  get "/users/events/:id" do
+    erb :"/users/events"
+  end
+
   delete "/users/events/:id/delete" do
-    event=Event.find_by(id: params[:id])
-    if !event 
-      session[:delete_error]="The event has already been deleted"
+    event = Event.find_by(id: params[:id])
+    if !event
+      session[:delete_error] = 'The event has already been deleted'
       redirect "/events/#{params[:id]}/delete"
     else
-    event.destroy
-    redirect "/events/#{params[:id]}/delete"
+      event.destroy
+      Rsvp.where { |rsvp| rsvp.event_id == event.id }.destroy_all
+      redirect "/events/#{params[:id]}/delete"
     end
   end
   

@@ -1,10 +1,12 @@
 
-<h1>Find something you like</h1>
+
+<h2>Find something you like</h2>
 <h3>Events:</h3>
-<%Event.all.each do |event|%>
+<%Event.all.reverse.each do |event|%>
  <a href="events/<%=event.id%>">   <%=event.name%></a>
     <br>
     <%end%>
     <br>
     <br>
-    <a href='/users/:id'>Return to profile</a>
+    <a href='/users/<%=current_user.id%>'>Return to profile</a>
+    <a href='/events/my_rsvps'>Your RSVPs</a>

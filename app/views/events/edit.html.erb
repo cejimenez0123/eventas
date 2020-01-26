@@ -1,5 +1,6 @@
+<h1>Event edit</h1>
 <form action="/events/<%=params[:id]%>" method="POST">
-    <input id="hidden" type="hidden" name="_method" value="PATCH" />
+    <input id="hidden" type="hidden" name="_method" value="PUT" />
         <h1>Event name:<input type="text" name = "event[name]" value="<%= @event.name%>"></h1>
     <br>
     <br>
@@ -12,4 +13,4 @@
   <input type="hidden" name="_method" value="DELETE">
     <input type="submit" value="Delete Event">
 </form>
-  <a href="/users/<%=session[:user_id]%>">Return to profile</a>
+  <a href="/users/<%=current_user.id%>">Go to profile</a>

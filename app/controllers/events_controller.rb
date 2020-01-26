@@ -11,6 +11,7 @@ class EventsController < ApplicationController
     @event_error=session[:event_error]
     erb :"/events/new.html"
   end
+
   post "/events/new" do
     if Event.find_by(name: params[:event][:name])
       session[:event_error]="An event exist with name already"
@@ -19,21 +20,29 @@ class EventsController < ApplicationController
       session[:event_error]="Inputs can't be empty"
       redirect "/events/new"
     else
-      @event = Event.create(name: params[:event][:name],dis: params[:event][:dis], user: current_user)
-      @event.user = current_user
-      redirect "/events"
+      @event = Event.create(name: params[:event][:name],dis: params[:event][:dis], created_by_id: current_user.id)
+      current_user.events << @event
+      redirect "/users/#{current_user.id}"
     end
   end
+  
   post "/events/:id/rsvp" do
-    event = Event.find_by(id: params[:id])
-    Rsvp.create(event: event, user: current_user)
+    event = Event.find_by(params)
+    Rsvp.create(event_id: event.id, user_id: current_user.id)
     redirect "/events/my_rsvps"
   end
   get "/events/my_rsvps" do 
-    @user=User.find_by(id: session[:user_id])
+    @rsvp_error=session[:rsvp_error]
+    @user=User.find_by(id: current_user.id)
+    if @user.rsvps.empty?
+      @rsvp_error="RSVP to some events. In the events page"
+    else
+      @rsvp_error = nil
+    end
     erb :"/rsvp/index"
   end
   delete "/events/:id/rsvp/delete" do
+    binding.pry
     event = Event.find_by(id: params[:id])
     rsvp = Rsvp.find_by(event: event, user: current_user) 
     rsvp.destroy
@@ -56,9 +65,9 @@ class EventsController < ApplicationController
     @event = Event.find_by(id: params[:id])
     erb :"/events/edit.html"
   end
-
   # PATCH: /events/5
-  patch "/events/:id" do
+  put "/events/:id" do
+    binding.pry
     event = Event.find_by(id: params[:id])
     event.name = params[:event][:name]
     event.dis = params[:event][:dis]
@@ -71,16 +80,7 @@ class EventsController < ApplicationController
     redirect "/events"
   end
 
-
-
-  helpers do 
-    def current_user
-      User.find_by(id: session[:user_id])
-    end
+  get "/events/:id/delete" do
+    erb :"/events/delete"
   end
-
-
-
-
-
 end

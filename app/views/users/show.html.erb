@@ -1,12 +1,22 @@
-<h1>Hello <%= @user.name%></h1>
+
+<h1>Hello <%= @user.name%>, welcome to your profile!</h1>
+<br>
+
+<h3>Your events:</h3>
+<%=@event_message%>
+    <%@user_events.each do |event|%>
+        <a href="/events/<%=event.id%>/edit"><%=event.name%></a>
+        <br>  
+    <%end%>
+    
 <br>
 <br>
 <a href="/events/new">Create a new event</a>
-<br>
+
 <a href="/events">Checkout events</a>
-<br>
+
 <a href="/logout">Log out</a>
-<br>
+
 <a href="/events/my_rsvps">Your RSVPs</a>
-<br>
+
 <a href="/users/<%=@user.id%>/edit">Edit Account</a>
