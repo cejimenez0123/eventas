@@ -1,8 +1,8 @@
 <h2>Events you are RSVPed to</h2>
-<%=@rsvp_error%>
-<%@user.rsvps.each do |rsvp| %>
 
-<a href= "/events/<%=rsvp.event.id%>"> <%=rsvp.event.name%></a>
+<%=@rsvp_error%>
+<%@user_rsvps.each do |rsvp| %>
+<a href= "/events/<%=rsvp.event_id%>"> <%=rsvp.event.name%></a>
 <br>
 <%end%>
 <br>

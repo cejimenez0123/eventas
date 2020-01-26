@@ -83,7 +83,9 @@ class UsersController < ApplicationController
       redirect "/events/#{params[:id]}/delete"
     else
       event.destroy
-      Rsvp.where { |rsvp| rsvp.event_id == event.id }.destroy_all
+      Rsvp.where { |rsvp| 
+        rsvp.destroy if rsvp.event_id == event.id
+       }
       redirect "/events/#{params[:id]}/delete"
     end
   end

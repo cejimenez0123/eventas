@@ -25,16 +25,24 @@ class EventsController < ApplicationController
       redirect "/users/#{current_user.id}"
     end
   end
-  
+
   post "/events/:id/rsvp" do
     event = Event.find_by(params)
     Rsvp.create(event_id: event.id, user_id: current_user.id)
     redirect "/events/my_rsvps"
   end
   get "/events/my_rsvps" do 
-    @rsvp_error=session[:rsvp_error]
-    @user=User.find_by(id: current_user.id)
-    if @user.rsvps.empty?
+    @rsvp_error = session[:rsvp_error]
+    @user = User.find_by(id: current_user.id)
+    @user_rsvps = []
+    @user.rsvps.each do |rsvp| 
+      if rsvp.event
+        @user_rsvps << rsvp 
+      else 
+        rsvp.destroy
+      end
+      end
+    if @user_rsvps.empty?
       @rsvp_error="RSVP to some events. In the events page"
     else
       @rsvp_error = nil
@@ -42,9 +50,8 @@ class EventsController < ApplicationController
     erb :"/rsvp/index"
   end
   delete "/events/:id/rsvp/delete" do
-    binding.pry
     event = Event.find_by(id: params[:id])
-    rsvp = Rsvp.find_by(event: event, user: current_user) 
+    rsvp = Rsvp.find_by(event_id: event.id, user_id: current_user.id) 
     rsvp.destroy
     redirect "/events/my_rsvps"
   end
@@ -77,6 +84,9 @@ class EventsController < ApplicationController
 
   # DELETE: /events/5/delete
   delete "/events/:id/delete" do
+    binding.pry
+    event=Event.find_by(id: params[:id])
+    event.destroy
     redirect "/events"
   end
 
